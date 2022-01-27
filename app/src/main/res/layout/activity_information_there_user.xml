@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.InformationThereUserActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Live address"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgLive"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/live"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/live_icon" />
+
+            <TextView
+                android:id="@+id/liveTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/live"
+                android:layout_alignTop="@id/imgLive"
+                android:layout_alignBottom="@id/imgLive"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgLive"
+                android:gravity="center|start"
+                android:text="Binh phuoc"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/relativeAddress"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
+            android:background="#8E8E8E" />
+
+        <RelativeLayout
+            android:id="@+id/relativeContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view2">
+
+            <TextView
+                android:id="@+id/ContactInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Contact Info"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgEmail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/ContactInfo"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/email" />
+
+            <TextView
+                android:id="@+id/emailTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imgEmail"
+                android:layout_alignBottom="@id/imgEmail"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgEmail"
+                android:gravity="center|start"
+                android:text="thanhbp696@gmail.com"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/contactEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/emailTv"
+                android:layout_alignBottom="@id/emailTv"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/gmail" />
+
+            <ImageView
+                android:id="@+id/imgPhone"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/imgEmail"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/phone" />
+
+            <TextView
+                android:id="@+id/phoneTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imgPhone"
+                android:layout_alignBottom="@id/imgPhone"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgPhone"
+                android:gravity="center|start"
+                android:text="0363166463"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/callPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/phoneTv"
+                android:layout_alignBottom="@id/phoneTv"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/call_number" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/relativeContact"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
+            android:background="#8E8E8E" />
+
+        <RelativeLayout
+            android:id="@+id/relativeBasic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view3">
+
+            <TextView
+                android:id="@+id/Basic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Info basic"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgGender"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/Basic"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:id="@+id/GenderTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imgGender"
+                android:layout_alignBottom="@id/imgGender"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgGender"
+                android:gravity="center|start"
+                android:text="Man"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgBirthday"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/imgGender"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/cake" />
+
+            <TextView
+                android:id="@+id/birthdayTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imgBirthday"
+                android:layout_alignBottom="@id/imgBirthday"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgBirthday"
+                android:gravity="center|start"
+                android:text="18/9/2000"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/relativeBasic"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
+            android:background="#8E8E8E" />
+
+        <RelativeLayout
+            android:id="@+id/relativeRelationship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/view4">
+
+            <TextView
+                android:id="@+id/relationship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Relationship"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgRelationship"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/relationship"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/relationship" />
+
+            <TextView
+                android:id="@+id/RelationshipTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imgRelationship"
+                android:layout_alignBottom="@id/imgRelationship"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@+id/imgRelationship"
+                android:gravity="center|start"
+                android:text="Single"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

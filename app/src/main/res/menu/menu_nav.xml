@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_action_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_action_profile"
+        android:title="Profile" />
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/chat"
+        android:title="Chat" />
+
+    <item
+        android:id="@+id/nav_users"
+        android:icon="@drawable/ic_action_friend"
+        android:title="Friends" />
+
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="More" />
+</menu>

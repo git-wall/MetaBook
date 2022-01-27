@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Meta/app/src/main/res/drawable-anydpi/edittext2.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-anydpi/text_xam.xml" value="0.22685185185185186" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/bg_toolbar.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/bottom_sheet.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/edittext.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/edittext1.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/text.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22314814814814815" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-v24/text_typing.xml" value="0.1287037037037037" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xhdpi/bottom_sheet.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xhdpi/button2.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xhdpi/button3.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xhdpi/comment_xam.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xxhdpi/button1.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xxhdpi/circle_offline.xml" value="0.14629629629629629" />
+        <entry key="..\:/Meta/app/src/main/res/drawable-xxhdpi/circle_online.xml" value="0.14629629629629629" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/button.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/circle_bg.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/circle_white.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/edittext.xml" value="0.19722222222222222" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/edittext1.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/edittext_style.xml" value="0.20989583333333334" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_action_friend.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_baseline_more_horiz_24.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22314814814814815" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/ic_send_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/my_message.xml" value="0.11574074074074074" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/radio_normal.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/radio_selector.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/radio_selectted.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/textfile.xml" value="0.1287037037037037" />
+        <entry key="..\:/Meta/app/src/main/res/drawable/textwhite.xml" value="0.2703125" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_add_post.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_chat.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_dash_board.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_information_there_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_information_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_post_detail.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_post_liked_by.xml" value="0.2" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_settings.xml" value="0.19427083333333334" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_theie_profile.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/activity_there_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/bottomsheet.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/bottomsheet_copy_comment.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/bottomsheet_edit.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/dialog_update_password.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_chat_list.xml" value="0.24010416666666667" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_edit.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_notifications.xml" value="0.1921875" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/fragment_users.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/information_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_chat_left.xml" value="0.2" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_chat_right.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_chatlist.xml" value="0.2" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_comments.xml" value="0.4" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_notification.xml" value="0.1" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_posts.xml" value="0.264" />
+        <entry key="..\:/Meta/app/src/main/res/layout/row_user.xml" value="0.2" />
+        <entry key="..\:/Meta/app/src/main/res/layout/view_information_basic.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/menu/menu_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/menu/menu_nav.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/menu/menu_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11927083333333334" />
+        <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11927083333333334" />
+        <entry key="..\:/Meta/app/src/main/res/xml/paths.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
