@@ -24,6 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Meta">
         <activity
+            android:name=".UI.VideoCallActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.IncomingCallActivity"
+            android:exported="false" />
+        <activity
             android:name=".UI.SettingsActivity"
             android:exported="false" />
         <activity
