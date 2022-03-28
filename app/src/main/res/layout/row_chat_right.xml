@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/messageLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -40,6 +41,59 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/messageCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="#A8A8A8"
+                android:visibility="gone"
+                app:cardCornerRadius="15dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:backgroundTint="#8BC34A"
+                        app:cardCornerRadius="30dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="3dp"
+                            android:src="@drawable/ic_baseline_call_32" />
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cuộc gọi thoại"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/timeCall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="05:50"
+                            android:textColor="@color/black"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <com.github.chrisbanes.photoview.PhotoView
                 android:id="@+id/messageIv"
@@ -50,7 +104,8 @@
                 android:background="@drawable/textwhite"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sin" />
+                android:src="@drawable/sin"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 
