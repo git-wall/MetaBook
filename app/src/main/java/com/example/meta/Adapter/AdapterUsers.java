@@ -2,6 +2,7 @@ package com.example.meta.Adapter;
 
 import static androidx.core.content.res.ResourcesCompat.getFont;
 import static com.example.meta.Other.StringUtil.FB_URL;
+import static com.example.meta.Other.StringUtil.OtherUserID;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -114,6 +115,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder> {
                             }
                         }
                         Intent intent = new Intent(context, ChatActivity.class);
+                        OtherUserID = ref.getKey();
                         intent.putExtra("hisUid", hisUid);
                         context.startActivity(intent);
                     }

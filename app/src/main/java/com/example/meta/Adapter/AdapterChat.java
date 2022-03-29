@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meta.Model.ModelChat;
@@ -70,20 +71,27 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa", cal).toString();
-        if(type.equals("text")){
+        if (type.equals("text")) {
             holder.messageTv.setVisibility(View.VISIBLE);
             holder.messageIv.setVisibility(View.GONE);
+            holder.messageCall.setVisibility(View.GONE);
             holder.messageTv.setText(message);
-        }else {
+        } else if (type.equals("call") || message.equals("call_video")) {
+            holder.messageCall.setVisibility(View.VISIBLE);
+            holder.messageIv.setVisibility(View.GONE);
+            holder.messageTv.setVisibility(View.GONE);
+            holder.timeCall.setText(timeStamp);
+        } else {
             holder.messageTv.setVisibility(View.GONE);
             holder.messageIv.setVisibility(View.VISIBLE);
+            holder.messageCall.setVisibility(View.GONE);
             Picasso.get().load(message).placeholder(R.drawable.sin).into(holder.messageIv);
         }
 //        holder.messageTv.setText(message);
         holder.timeTv.setText(dateTime);
         try {
             Picasso.get().load(imageUrl).into(holder.profileTv);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
         //click delete
@@ -158,12 +166,15 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder> {
 
     class MyHolder extends RecyclerView.ViewHolder {
         CircleImageView profileTv;
-        TextView messageTv, timeTv, isSeenTv;
+        TextView messageTv, timeTv, isSeenTv, timeCall;
         LinearLayout messageLayout;
         PhotoView messageIv;
+        CardView messageCall;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
+            messageCall = itemView.findViewById(R.id.messageCall);
+            timeCall = itemView.findViewById(R.id.timeCall);
             profileTv = itemView.findViewById(R.id.profileTv);
             messageTv = itemView.findViewById(R.id.messageTv);
             timeTv = itemView.findViewById(R.id.timeTv);
