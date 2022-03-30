@@ -2,6 +2,7 @@ package com.example.meta.UI;
 
 import static androidx.core.content.res.ResourcesCompat.getFont;
 import static com.example.meta.Other.StringUtil.FB_URL;
+import static com.example.meta.Other.StringUtil.OtherUserID;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -79,6 +80,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
@@ -92,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
     CircleImageView profileTv;
     TextView nameTv, userStatusTv, his_typing;
     EditText messageEt;
-    ImageButton sendBtn, attachBtn, micBtn;
+    ImageButton sendBtn, attachBtn, micBtn,image_call;
     ImageView blockIv;
 
     String hisUid;
@@ -131,6 +133,7 @@ public class ChatActivity extends AppCompatActivity {
         messageEt = findViewById(R.id.messageEt);
         sendBtn = findViewById(R.id.sendBtn);
         his_typing = findViewById(R.id.his_typing);
+        image_call = findViewById(R.id.image_call);
         attachBtn = findViewById(R.id.attachBtn);
         blockIv = findViewById(R.id.blockIv);
         micBtn = findViewById(R.id.mic);
@@ -190,6 +193,14 @@ public class ChatActivity extends AppCompatActivity {
         attachBtn.setOnClickListener(view -> {
             getImage();
         });
+        image_call.setOnClickListener(view -> {
+            getCallVideo();
+            Intent intent3 = new Intent(this, IncomingCallActivity.class);
+            intent3.putExtra("OtherUserID", OtherUserID);
+            startActivity(intent3);
+        });
+
+
         micBtn.setOnClickListener(view -> {
             SpeedToText();
         });
@@ -243,6 +254,68 @@ public class ChatActivity extends AppCompatActivity {
         checkIsBlocked();
         readMessages();
         seenMessages();
+    }
+
+    private void getCallVideo() {
+        notify = true;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(FB_URL).getReference();
+        String timeStamp = "" + System.currentTimeMillis();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", myUid);
+        hashMap.put("receiver", hisUid);
+        hashMap.put("message", "call_video");
+        hashMap.put("timestamp", timeStamp);
+        hashMap.put("isSeen", false);
+        hashMap.put("type", "call");
+        databaseReference.child("Chats").push().setValue(hashMap);
+        final DatabaseReference database = FirebaseDatabase.getInstance(FB_URL).getReference("Users").child(myUid);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ModelUser user = snapshot.getValue(ModelUser.class);
+                if (notify) {
+                    sendNotification(hisUid, Objects.requireNonNull(user).getName(), "You have call by " + user.getName());
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference chatRef1 = FirebaseDatabase.getInstance(FB_URL).getReference("Chatlist")
+                .child(myUid)
+                .child(hisUid);
+        chatRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    chatRef1.child("id").setValue(hisUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference chatRef2 = FirebaseDatabase.getInstance(FB_URL).getReference("Chatlist")
+                .child(hisUid)
+                .child(myUid);
+        chatRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    chatRef2.child("id").setValue(hisUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void SpeedToText() {

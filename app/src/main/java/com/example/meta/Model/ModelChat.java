@@ -4,6 +4,7 @@ public class ModelChat {
     String message, receiver, sender, timestamp,type;
     boolean isSeen;
 
+
     public ModelChat() {
     }
 
