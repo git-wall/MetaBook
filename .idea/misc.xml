@@ -80,6 +80,9 @@
         <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11927083333333334" />
         <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11927083333333334" />
         <entry key="..\:/Meta/app/src/main/res/xml/paths.xml" value="0.1" />
+        <entry key="..\:/MetaBook/app/src/main/res/drawable/ic_baseline_call_32.xml" value="0.196" />
+        <entry key="..\:/MetaBook/app/src/main/res/layout/row_chat_left.xml" value="0.358695652173913" />
+        <entry key="..\:/MetaBook/app/src/main/res/layout/row_chat_right.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>
