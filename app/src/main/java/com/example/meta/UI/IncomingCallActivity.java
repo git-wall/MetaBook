@@ -47,6 +47,7 @@ public class IncomingCallActivity extends AppCompatActivity {
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         cancel_call.setOnClickListener(view -> {
             checker = "clicked";
+            cancelCall();
         });
         // chấp nhận cuộc gọi chuyển wa activity phát video call
         accept_call.setOnClickListener(view -> {
@@ -132,6 +133,69 @@ public class IncomingCallActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Không chấp nhận cuộc gọi được gửi tới
+    private void cancelCall() {
+        // người gửi cuộc gọi
+        mRef.child(myID).child("Calling").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.hasChild("Calling")) {
+                    callingID = snapshot.child("calling").getValue().toString();
+                    mRef.child(callingID).child("Ringing").removeValue().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            mRef.child(myID).child("Calling").removeValue().addOnCompleteListener(task12 -> {
+//                                Intent intent3 = new Intent(IncomingCallActivity.this, ChatActivity.class);
+//                                intent3.putExtra("OtherUserID", OtherUserID);
+//                                startActivity(intent3);
+                                finish();
+                            });
+                        }
+                    });
+                } else {
+//                    Intent intent3 = new Intent(IncomingCallActivity.this, ChatActivity.class);
+//                    intent3.putExtra("OtherUserID", OtherUserID);
+//                    startActivity(intent3);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        // người nhận cuộc gọi
+        mRef.child(myID).child("Ringing").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.hasChild("ringing")) {
+                    ringingID = snapshot.child("ringing").getValue().toString();
+                    mRef.child(ringingID).child("Calling").removeValue().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            mRef.child(myID).child("Ringing").removeValue().addOnCompleteListener(task1 -> {
+//                                Intent intent3 = new Intent(IncomingCallActivity.this, ChatActivity.class);
+//                                intent3.putExtra("OtherUserID", OtherUserID);
+//                                startActivity(intent3);
+                                finish();
+                            });
+                        }
+                    });
+                } else {
+//                    Intent intent3 = new Intent(IncomingCallActivity.this, ChatActivity.class);
+//                    intent3.putExtra("OtherUserID", OtherUserID);
+//                    startActivity(intent3);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     @Override
     public void onStop() {
