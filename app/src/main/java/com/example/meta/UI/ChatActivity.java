@@ -19,6 +19,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -76,6 +77,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -94,18 +96,19 @@ public class ChatActivity extends AppCompatActivity {
     CircleImageView profileTv;
     TextView nameTv, userStatusTv, his_typing;
     EditText messageEt;
-    ImageButton sendBtn, attachBtn, micBtn, image_call;
+    ImageButton sendBtn, attachBtn, micBtn, image_call; // khai báo nút call
     ImageView blockIv;
 
     String hisUid;
     String myUid;
     String hisImage;
+    private String call = "";
     boolean isBlocked = false;
 
-    FirebaseUser mUser;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userDbRef;
+    FirebaseUser mUser;
     ValueEventListener seenListener;
     DatabaseReference userRefForSeen;
 
@@ -134,10 +137,10 @@ public class ChatActivity extends AppCompatActivity {
         messageEt = findViewById(R.id.messageEt);
         sendBtn = findViewById(R.id.sendBtn);
         his_typing = findViewById(R.id.his_typing);
-        image_call = findViewById(R.id.image_call);
         attachBtn = findViewById(R.id.attachBtn);
         blockIv = findViewById(R.id.blockIv);
         micBtn = findViewById(R.id.mic);
+        image_call = findViewById(R.id.image_call); // khai báo tìm id nút call
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -150,6 +153,7 @@ public class ChatActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance(FB_URL);
         userDbRef = firebaseDatabase.getReference("Users");
+        OtherUserID = hisUid;
         Query query = userDbRef.orderByChild("uid").equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -194,14 +198,6 @@ public class ChatActivity extends AppCompatActivity {
         attachBtn.setOnClickListener(view -> {
             getImage();
         });
-        image_call.setOnClickListener(view -> {
-            getCallVideo();
-            Intent intent3 = new Intent(this, IncomingCallActivity.class);
-            intent3.putExtra("OtherUserID", OtherUserID);
-            startActivity(intent3);
-        });
-
-
         micBtn.setOnClickListener(view -> {
             SpeedToText();
         });
@@ -220,6 +216,13 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage(message);
             }
             messageEt.setText("");
+        });
+        // khi click vào nút call
+        image_call.setOnClickListener(view -> {
+            getCallVideo();
+            Intent intent3 = new Intent(this, IncomingCallActivity.class);
+            intent3.putExtra("OtherUserID", OtherUserID);
+            startActivity(intent3);
         });
         messageEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -255,12 +258,11 @@ public class ChatActivity extends AppCompatActivity {
         checkIsBlocked();
         readMessages();
         seenMessages();
-        checkCall(); //long-thanh
+        checkCall();
     }
 
-
-
-    private void checkCall() { //long-thanh
+    // kiểm tra cuộc gọi tới
+    private void checkCall() {
         mUser = firebaseAuth.getCurrentUser();
         if (mUser != null) {
             myUid = mUser.getUid();
@@ -282,7 +284,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void getCallVideo() {
         notify = true;
@@ -583,12 +584,7 @@ public class ChatActivity extends AppCompatActivity {
                     });
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-            }
-        });
+        }).addOnFailureListener(e -> progressDialog.dismiss());
 
     }
 
@@ -623,14 +619,16 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)
-                            || chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
-                        chatList.add(chat);
+                    if(chat != null){
+                        if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)
+                                || chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                            chatList.add(chat);
+                        }
                     }
-                    adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
-                    adapterChat.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapterChat);
                 }
+                adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
+                adapterChat.notifyDataSetChanged();
+                recyclerView.setAdapter(adapterChat);
             }
 
             @Override
@@ -657,7 +655,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ModelUser user = snapshot.getValue(ModelUser.class);
                 if (notify) {
-                    sendNotification(hisUid, user.getName(), message);
+                    sendNotification(hisUid, Objects.requireNonNull(user).getName(), message);
                 }
                 notify = false;
             }

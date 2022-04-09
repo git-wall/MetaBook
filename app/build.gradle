@@ -73,4 +73,8 @@ dependencies {
     // intro
     implementation 'com.github.Keeprawteach:Text-Animation:1.0.0'
     implementation 'com.github.elevenetc:textsurface:0.9.1'
+    //open tok video call
+    implementation 'com.opentok.android:opentok-android-sdk:2.21.1'
+    // permission
+    implementation 'pub.devrel:easypermissions:3.0.0'
 }
