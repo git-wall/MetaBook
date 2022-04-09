@@ -94,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
     CircleImageView profileTv;
     TextView nameTv, userStatusTv, his_typing;
     EditText messageEt;
-    ImageButton sendBtn, attachBtn, micBtn,image_call;
+    ImageButton sendBtn, attachBtn, micBtn, image_call;
     ImageView blockIv;
 
     String hisUid;
@@ -102,6 +102,7 @@ public class ChatActivity extends AppCompatActivity {
     String hisImage;
     boolean isBlocked = false;
 
+    FirebaseUser mUser;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userDbRef;
@@ -254,7 +255,34 @@ public class ChatActivity extends AppCompatActivity {
         checkIsBlocked();
         readMessages();
         seenMessages();
+        checkCall(); //long-thanh
     }
+
+
+
+    private void checkCall() { //long-thanh
+        mUser = firebaseAuth.getCurrentUser();
+        if (mUser != null) {
+            myUid = mUser.getUid();
+        }
+        userDbRef.child(myUid).child("Ringing").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("ringing")) {
+                    // nếu có trạng thái ringing thì chuyển qua activity gọi video
+//                    call = Objects.requireNonNull(snapshot.child("ringing").getValue()).toString();
+                    Intent intent = new Intent(ChatActivity.this, IncomingCallActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 
     private void getCallVideo() {
         notify = true;
