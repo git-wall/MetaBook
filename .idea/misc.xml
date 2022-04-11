@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Layout/MetaBook/app/src/main/res/drawable-v24/ic_baseline_videocam_24.xml" value="0.2703125" />
+        <entry key="..\:/Layout/MetaBook/app/src/main/res/layout/activity_chat.xml" value="0.25416666666666665" />
+        <entry key="..\:/Layout/MetaBook/app/src/main/res/layout/activity_incoming_call.xml" value="0.25416666666666665" />
+        <entry key="..\:/Layout/MetaBook/app/src/main/res/layout/activity_video_call.xml" value="0.25416666666666665" />
         <entry key="..\:/Meta/app/src/main/res/drawable-anydpi/edittext2.xml" value="0.2703125" />
         <entry key="..\:/Meta/app/src/main/res/drawable-anydpi/text_xam.xml" value="0.22685185185185186" />
         <entry key="..\:/Meta/app/src/main/res/drawable-mdpi/bg_toolbar.xml" value="0.1" />
@@ -76,6 +80,9 @@
         <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11927083333333334" />
         <entry key="..\:/Meta/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.11927083333333334" />
         <entry key="..\:/Meta/app/src/main/res/xml/paths.xml" value="0.1" />
+        <entry key="..\:/MetaBook/app/src/main/res/drawable/ic_baseline_call_32.xml" value="0.196" />
+        <entry key="..\:/MetaBook/app/src/main/res/layout/row_chat_left.xml" value="0.358695652173913" />
+        <entry key="..\:/MetaBook/app/src/main/res/layout/row_chat_right.xml" value="0.358695652173913" />
       </map>
     </option>
   </component>

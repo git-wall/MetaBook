@@ -2,6 +2,7 @@ package com.example.meta.UI;
 
 import static androidx.core.content.res.ResourcesCompat.getFont;
 import static com.example.meta.Other.StringUtil.FB_URL;
+import static com.example.meta.Other.StringUtil.OtherUserID;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
@@ -18,6 +19,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -75,10 +77,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
@@ -92,17 +96,19 @@ public class ChatActivity extends AppCompatActivity {
     CircleImageView profileTv;
     TextView nameTv, userStatusTv, his_typing;
     EditText messageEt;
-    ImageButton sendBtn, attachBtn, micBtn;
+    ImageButton sendBtn, attachBtn, micBtn, image_call; // khai báo nút call
     ImageView blockIv;
 
     String hisUid;
     String myUid;
     String hisImage;
+    private String call = "";
     boolean isBlocked = false;
 
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userDbRef;
+    FirebaseUser mUser;
     ValueEventListener seenListener;
     DatabaseReference userRefForSeen;
 
@@ -134,6 +140,7 @@ public class ChatActivity extends AppCompatActivity {
         attachBtn = findViewById(R.id.attachBtn);
         blockIv = findViewById(R.id.blockIv);
         micBtn = findViewById(R.id.mic);
+        image_call = findViewById(R.id.image_call); // khai báo tìm id nút call
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -146,6 +153,7 @@ public class ChatActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance(FB_URL);
         userDbRef = firebaseDatabase.getReference("Users");
+        OtherUserID = hisUid;
         Query query = userDbRef.orderByChild("uid").equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -209,6 +217,13 @@ public class ChatActivity extends AppCompatActivity {
             }
             messageEt.setText("");
         });
+        // khi click vào nút call
+        image_call.setOnClickListener(view -> {
+            getCallVideo();
+            Intent intent3 = new Intent(this, IncomingCallActivity.class);
+            intent3.putExtra("OtherUserID", OtherUserID);
+            startActivity(intent3);
+        });
         messageEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -243,6 +258,93 @@ public class ChatActivity extends AppCompatActivity {
         checkIsBlocked();
         readMessages();
         seenMessages();
+        checkCall();
+    }
+
+    // kiểm tra cuộc gọi tới
+    private void checkCall() {
+        mUser = firebaseAuth.getCurrentUser();
+        if (mUser != null) {
+            myUid = mUser.getUid();
+        }
+        userDbRef.child(myUid).child("Ringing").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("ringing")) {
+                    // nếu có trạng thái ringing thì chuyển qua activity gọi video
+//                    call = Objects.requireNonNull(snapshot.child("ringing").getValue()).toString();
+                    Intent intent = new Intent(ChatActivity.this, IncomingCallActivity.class);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getCallVideo() {
+        notify = true;
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(FB_URL).getReference();
+        String timeStamp = "" + System.currentTimeMillis();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", myUid);
+        hashMap.put("receiver", hisUid);
+        hashMap.put("message", "call_video");
+        hashMap.put("timestamp", timeStamp);
+        hashMap.put("isSeen", false);
+        hashMap.put("type", "call");
+        databaseReference.child("Chats").push().setValue(hashMap);
+        final DatabaseReference database = FirebaseDatabase.getInstance(FB_URL).getReference("Users").child(myUid);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ModelUser user = snapshot.getValue(ModelUser.class);
+                if (notify) {
+                    sendNotification(hisUid, Objects.requireNonNull(user).getName(), "You have call by " + user.getName());
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference chatRef1 = FirebaseDatabase.getInstance(FB_URL).getReference("Chatlist")
+                .child(myUid)
+                .child(hisUid);
+        chatRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    chatRef1.child("id").setValue(hisUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference chatRef2 = FirebaseDatabase.getInstance(FB_URL).getReference("Chatlist")
+                .child(hisUid)
+                .child(myUid);
+        chatRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (!snapshot.exists()) {
+                    chatRef2.child("id").setValue(hisUid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void SpeedToText() {
@@ -482,12 +584,7 @@ public class ChatActivity extends AppCompatActivity {
                     });
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-            }
-        });
+        }).addOnFailureListener(e -> progressDialog.dismiss());
 
     }
 
@@ -522,14 +619,16 @@ public class ChatActivity extends AppCompatActivity {
                 chatList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     ModelChat chat = ds.getValue(ModelChat.class);
-                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)
-                            || chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
-                        chatList.add(chat);
+                    if(chat != null){
+                        if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)
+                                || chat.getReceiver().equals(hisUid) && chat.getSender().equals(myUid)) {
+                            chatList.add(chat);
+                        }
                     }
-                    adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
-                    adapterChat.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapterChat);
                 }
+                adapterChat = new AdapterChat(ChatActivity.this, chatList, hisImage);
+                adapterChat.notifyDataSetChanged();
+                recyclerView.setAdapter(adapterChat);
             }
 
             @Override
@@ -556,7 +655,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ModelUser user = snapshot.getValue(ModelUser.class);
                 if (notify) {
-                    sendNotification(hisUid, user.getName(), message);
+                    sendNotification(hisUid, Objects.requireNonNull(user).getName(), message);
                 }
                 notify = false;
             }
