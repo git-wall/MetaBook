@@ -138,12 +138,12 @@ public class ProfileFragment extends Fragment {
                     try {
                         Picasso.get().load(image).into(avatar);
                     } catch (Exception e) {
-                        Picasso.get().load(R.id.sin).into(avatar);
+//                        Picasso.get().load(R.id.sin).into(avatar);
                     }
                     try {
                         Picasso.get().load(cover).into(imgBg);
                     } catch (Exception e) {
-                        Picasso.get().load(R.id.sin).into(imgBg);
+//                        Picasso.get().load(R.id.sin).into(imgBg);
                     }
                 }
             }
@@ -232,7 +232,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showEditProfileDialog() {
-        String options[] = {"Edit profile", "Edit image background", "Edit name","Change password"};
+        String options[] = {"Edit profile", "Edit image background", "Edit name", "Change password"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Action");
         builder.setItems(options, (dialogInterface, i) -> {
@@ -256,7 +256,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void showChangePasswordDialog() {
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password,null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_update_password, null);
         EditText passwordEt = view.findViewById(R.id.passwordEt);
         EditText cPasswordEt = view.findViewById(R.id.cPasswordEt);
         LottieAnimationView updatePassword = view.findViewById(R.id.updatePassword);
@@ -269,23 +269,23 @@ public class ProfileFragment extends Fragment {
             updatePassword.playAnimation();
             String oldPassword = passwordEt.getText().toString().trim();
             String newPassword = cPasswordEt.getText().toString().trim();
-            if(TextUtils.isEmpty(oldPassword)){
-                toastV.Warning(getActivity(),"Warning","Text is empty");
+            if (TextUtils.isEmpty(oldPassword)) {
+                toastV.Warning(getActivity(), "Warning", "Text is empty");
                 return;
             }
-            if(newPassword.length()<6){
-                toastV.Warning(getActivity(),"Warning","New password must higher 6 character!");
+            if (newPassword.length() < 6) {
+                toastV.Warning(getActivity(), "Warning", "New password must higher 6 character!");
                 return;
             }
             dialog.dismiss();
-            updatePass(oldPassword,newPassword);
+            updatePass(oldPassword, newPassword);
         });
     }
 
     private void updatePass(String oldPassword, String newPassword) {
         pd.show();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(),oldPassword);
+        AuthCredential authCredential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
         user.reauthenticate(authCredential).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -293,12 +293,12 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onSuccess(Void unused) {
                         pd.dismiss();
-                        toastV.Success(getActivity(),"Password","Update success");
+                        toastV.Success(getActivity(), "Password", "Update success");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        toastV.Warning(getActivity(),"Warning",e.getMessage());
+                        toastV.Warning(getActivity(), "Warning", e.getMessage());
                     }
                 });
             }
@@ -306,7 +306,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                toastV.Warning(getActivity(),"Warning",e.getMessage());
+                toastV.Warning(getActivity(), "Warning", e.getMessage());
             }
         });
     }
@@ -366,10 +366,10 @@ public class ProfileFragment extends Fragment {
                 result.put(key, value);
                 databaseReference.child(user.getUid()).updateChildren(result).addOnSuccessListener(unused -> {
                     pd.dismiss();
-                    toastV.Success(getActivity(),"Name","Update success");
+                    toastV.Success(getActivity(), "Name", "Update success");
                 }).addOnFailureListener(e -> {
                     pd.dismiss();
-                    toastV.Failed(getActivity(),"Name","Update failed");
+                    toastV.Failed(getActivity(), "Name", "Update failed");
                 });
                 if (key.equals("name")) {
                     DatabaseReference ref = FirebaseDatabase.getInstance(FB_URL).getReference("Posts");
@@ -391,15 +391,15 @@ public class ProfileFragment extends Fragment {
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for(DataSnapshot ds:snapshot.getChildren()){
+                            for (DataSnapshot ds : snapshot.getChildren()) {
                                 String child = ds.getKey();
-                                if(snapshot.child(child).hasChild("Comments")){
-                                    String child1 = ""+snapshot.child(child).getKey();
+                                if (snapshot.child(child).hasChild("Comments")) {
+                                    String child1 = "" + snapshot.child(child).getKey();
                                     Query child2 = FirebaseDatabase.getInstance(FB_URL).getReference("Posts").child(child1).child("Comments").orderByChild("uid").equalTo(uid);
                                     child2.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            for(DataSnapshot ds:snapshot.getChildren()){
+                                            for (DataSnapshot ds : snapshot.getChildren()) {
                                                 String child = ds.getKey();
                                                 snapshot.getRef().child(child).child("uName").setValue(value);
                                             }
@@ -421,7 +421,7 @@ public class ProfileFragment extends Fragment {
                     });
                 }
             } else {
-                toastV.Warning(getActivity(),"Name","Is empty");
+                toastV.Warning(getActivity(), "Name", "Is empty");
             }
         }).setNegativeButton("Cancel", (dialogInterface, i) -> {
             dialogInterface.dismiss();
@@ -534,13 +534,13 @@ public class ProfileFragment extends Fragment {
                         @Override
                         public void onSuccess(Void unused) {
                             pd.dismiss();
-                            toastV.Success(getActivity(),"Avatar","Update success");
+                            toastV.Success(getActivity(), "Avatar", "Update success");
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             pd.dismiss();
-                            toastV.Failed(getActivity(),"Avatar","Update failed");
+                            toastV.Failed(getActivity(), "Avatar", "Update failed");
                         }
                     });
                     if (profileOrCoverPhoto.equals("image")) {
@@ -564,15 +564,15 @@ public class ProfileFragment extends Fragment {
                         ref.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for(DataSnapshot ds:snapshot.getChildren()){
+                                for (DataSnapshot ds : snapshot.getChildren()) {
                                     String child = ds.getKey();
-                                    if(snapshot.child(child).hasChild("Comments")){
-                                        String child1 = ""+snapshot.child(child).getKey();
+                                    if (snapshot.child(child).hasChild("Comments")) {
+                                        String child1 = "" + snapshot.child(child).getKey();
                                         Query child2 = FirebaseDatabase.getInstance(FB_URL).getReference("Posts").child(child1).child("Comments").orderByChild("uid").equalTo(uid);
                                         child2.addValueEventListener(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                for(DataSnapshot ds:snapshot.getChildren()){
+                                                for (DataSnapshot ds : snapshot.getChildren()) {
                                                     String child = ds.getKey();
                                                     snapshot.getRef().child(child).child("uDp").setValue(downloadUri.toString());
                                                 }
@@ -663,10 +663,9 @@ public class ProfileFragment extends Fragment {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
-        }
-        else if (id == R.id.action_add_post) {
+        } else if (id == R.id.action_add_post) {
             startActivity(new Intent(getActivity(), AddPostActivity.class));
-        }else if(id == R.id.action_setting){
+        } else if (id == R.id.action_setting) {
             startActivity(new Intent(getActivity(), SettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);
