@@ -72,7 +72,11 @@ public class IncomingCallActivity extends AppCompatActivity {
                 if (snapshot.child(OtherUserID).exists()) {
                     Username = snapshot.child(OtherUserID).child("name").getValue().toString();
                     ProfileImageLink = snapshot.child(OtherUserID).child("image").getValue().toString();
-                    Picasso.get().load(ProfileImageLink).into(profile_image_calling);
+                    try {
+                        Picasso.get().load(ProfileImageLink).into(profile_image_calling);
+                    } catch (Exception e) {
+                        Picasso.get().load(R.drawable.man).into(profile_image_calling);
+                    }
                 }
                 if (snapshot.child(myID).exists()) {
                     myProfileImageLink = snapshot.child(myID).child("image").getValue().toString();
